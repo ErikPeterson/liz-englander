@@ -2,8 +2,6 @@ module.exports = function (grunt) {
     'use strict';
     // Project configuration
     grunt.initConfig({
-        // Metadata
-        pkg: grunt.file.readJSON('package.json'),
        
         sass: {
             dist: {
@@ -12,7 +10,7 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: 'app/scss',
+                    cwd: 'app/sass',
                     src: ['main.scss'],
                     dest: 'dist/css',
                     ext: '.css'
@@ -20,31 +18,39 @@ module.exports = function (grunt) {
             } 
         },
         copy: {
-            html: {
-                files: [{
-                    expand: true,
-                    cwd: 'app',
-                    src: ['**/*.html'],
-                    dest: 'dist/'
-                }]
-            },
-            images : {
+            images: {
                 files: [{
                     expand: true,
                     cwd: 'app/images',
                     src: ['**/*'],
                     dest: 'dist/images'
                 }]
+            },
+            js: {
+                files: [{
+                    expand: true,
+                    cwd: 'app/js',
+                    src: ['main.js'],
+                    dest: 'dist/js'
+                }
+                ]
             }
         },
         watch: {
-            gruntfile: {
-                files: '<%= jshint.gruntfile.src %>',
-                tasks: ['jshint:gruntfile']
+            js: {
+                options: {livereload: true},
+                files: ['app/js/main.js'],
+                tasks: ['copy:js']
             },
             css: {
-                files: ['app/css/scss/**/*.scss'],
+                options: {livereload: true},
+                files: ['app/sass/**/*.scss'],
                 tasks: ['sass']
+            },
+            html: {
+                options: {livereload: true},
+                files: ['app/**/*.html'],
+                tasks: ['processhtml:dist']
             }
         },
         processhtml: {
@@ -56,9 +62,19 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'app',
-                    src: ['*.html', 'work/**/*.html']
+                    src: ['*.html', 'work/**/*.html'],
                     dest: 'dist'
                 }]
+            }
+        },
+        connect: {
+            server: {
+                options: {
+                    livereload: true,
+                    debug: true,
+                    base: 'dist',
+                    open: true
+                }
             }
         }
 
@@ -72,8 +88,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
     // Default task
-    grunt.registerTask('default', ['sass:dist']);
+    grunt.registerTask('default', ['sass:dist', 'processhtml:dist', 'copy']);
+    grunt.registerTask('serve', ['connect:server', 'watch']);
 };
 
