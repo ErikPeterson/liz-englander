@@ -1,5 +1,6 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700,400italic,700italic);
 body {
-  font: 400 1em/1.3 Helvetica, Arial, sans-serif;
+  font: 400 1em/1.3 'Roboto', Helvetica, Arial, sans-serif;
 }
 body a {
   color: #333333;
@@ -13,7 +14,6 @@ body a:hover {
 div.nav {
   width: 100%;
   box-sizing: border-box;
-  max-width: 320px;
   padding: 1em;
   margin: 0;
 }
@@ -28,9 +28,10 @@ div.nav h2 > a {
 div.nav h2 > a:hover {
   text-decoration: none;
 }
-@media only screen and (min-device-width: 321px) {
+@media only screen and (min-width: 640px) {
   div.nav h2 {
     text-align: left;
+    max-width: 320px;
   }
 }
 div.nav > ul.nav-tree {
@@ -41,9 +42,10 @@ div.nav > ul.nav-tree {
   padding: 1em 0;
   text-align: center;
 }
-@media only screen and (min-device-width: 321px) {
+@media only screen and (min-width: 640px) {
   div.nav > ul.nav-tree {
     text-align: left;
+    font-size: .85em;
   }
 }
 div.nav > ul.nav-tree > li {
@@ -53,7 +55,7 @@ div.nav > ul.nav-tree > li {
   margin: 0;
   padding: 0em .5em;
 }
-@media only screen and (min-device-width: 321px) {
+@media only screen and (min-width: 640px) {
   div.nav > ul.nav-tree > li {
     display: block;
     padding: 0em;
@@ -72,7 +74,7 @@ div.nav > ul.nav-tree > li > span:hover {
   color: #cccccc;
   text-decoration: none;
 }
-@media only screen and (min-device-width: 321px) {
+@media only screen and (min-width: 640px) {
   div.nav > ul.nav-tree > li > span {
     text-decoration: none;
     color: black;
@@ -84,32 +86,73 @@ div.nav > ul.nav-tree > li > span:hover {
   }
 }
 div.nav > ul.nav-tree > li > ul.nav-tree {
+  position: relative;
   display: none;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
-@media only screen and (min-device-width: 321px) {
+@media only screen and (min-width: 640px) {
   div.nav > ul.nav-tree > li > ul.nav-tree {
+    text-align: left;
     display: block;
   }
 }
-div.nav > ul.nav-tree > li > ul.nav-tree.active {
-  display: block;
-  position: absolute;
-  width: auto;
-  height: auto;
-  left: auto;
-  background: white;
+@media only screen and (max-width: 639px) {
+  div.nav > ul.nav-tree > li > ul.nav-tree.active {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: auto;
+    height: auto;
+    left: 0;
+    background: white;
+    padding: 0 .5em 1em .5em;
+  }
 }
-div.nav > ul.nav-tree > li > ul.nav-tree li {
+div.nav > ul.nav-tree > li > ul.nav-tree > li {
+  position: relative;
   list-style: none;
   display: block;
   margin: 0;
-  padding: 0.25em 0 0 .5em;
+  padding: 0;
+  max-width: 150px;
 }
-div.nav > ul.nav-tree > li > ul.nav-tree li > ul.nav-tree {
+div.nav > ul.nav-tree > li > ul.nav-tree > li > span.nav-title {
+  display: inline-block;
+  position: relative;
+  font-weight: bold;
+  margin-top: .75em;
+}
+div.nav > ul.nav-tree > li > ul.nav-tree > li > ul.nav-tree {
   margin: 0;
   padding: 0;
+}
+div.nav > ul.nav-tree > li > ul.nav-tree > li > ul.nav-tree > li {
+  display: none;
+}
+@media only screen and (min-width: 640px) {
+  div.nav > ul.nav-tree > li > ul.nav-tree > li > ul.nav-tree > li {
+    padding-bottom: .25em;
+    display: block;
+  }
+  div.nav > ul.nav-tree > li > ul.nav-tree > li > ul.nav-tree > li > span.nav-title {
+    position: relative;
+    display: inline-block;
+    padding-top: .75em;
+  }
+  div.nav > ul.nav-tree > li > ul.nav-tree > li > ul.nav-tree > li > a {
+    position: relative;
+    padding-left: 1em;
+    display: inline-block;
+  }
+  div.nav > ul.nav-tree > li > ul.nav-tree > li > ul.nav-tree > li > a::before {
+    content: '-';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }
 
 html {

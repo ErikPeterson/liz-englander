@@ -9,12 +9,26 @@
         });
     };
 
-    $(document).ready(function(){
-        var mobile = (window.screen.width < 321);
+    var isMobile = function(){
+        return (window.innerWidth < 640);
+    };
 
-        if(mobile){
+    $(document).ready(function(){
+
+        var bound = false;
+
+        if(isMobile){
             bindMenu();
+            bound = true;
         }
+
+        $(window).on('resize', function(){
+            if(!bound && isMobile){
+                bindMenu();
+                bound = true;
+            }
+        });
+
     });
 
 }(window, document, jQuery));
